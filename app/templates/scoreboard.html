@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block title %}Scoreboard{% endblock %}
+
+{% block content %}
+<h2>Scoreboard</h2>
+<div>
+    <table>
+      <tr>
+        <th>Pseudo</th>
+        <th>Score</th>
+      </tr>
+      {% for row in rows %}
+      <tr>
+        <td>{{ row['username'] }}</td>
+        <td>{{ row['score'] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,1 @@
+print("@telecom-sudparis.eu" in "thomas.schneider@telecom-sudparis.eu" or "@imt-bs.eu" in "thomas.schneider@telecom-sudparis.eu")

@@ -1,0 +1,27 @@
+version: "2"
+services:
+  app:
+    # build specifies the directory which contains the Dockerfile containing the instructions for building this service
+    build: ./app
+    # links this service to another container. This will also allow us to use the name of the service instead of having
+    # to find the ip of the database container, and express a dependency which
+    # will determine the order of start up of the container
+    links:
+      - db
+    # mapping of <Host>:<Container> ports.
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_DB=pythonlogin
+
+  db:
+    image: mysql:5.7
+    ports:
+      - "32000:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/:ro

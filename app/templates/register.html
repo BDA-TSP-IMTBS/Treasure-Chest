@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Bienvenue</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='index.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+    />
+  </head>
+  <body>
+    <div class="main-container">
+      <h2 class="header">Attrapez les tous</h2>
+      <p class="description">
+        Des cartes sont cachées ! Retrouvez-les le plus rapidement et vous
+        gagnerez un prix ! Cherchez les
+        <strong>12 QR codes</strong> dissimulés...
+      </p>
+
+      <div class="login">
+        <div class="links">
+          <a href="{{ url_for('login') }}">Login</a>
+          <a href="{{ url_for('register') }}" class="active">Register</a>
+        </div>
+        <form action="{{ url_for('register') }}" method="post">
+
+          <div class="form-section">
+            <label for="mail">
+              <i class="fas fa-user"></i>
+            </label>
+            <input
+              type="text"
+              name="mail"
+              placeholder="TSP or IMT-BS mail address"
+              id="mail"
+              required
+            />
+          </div>
+
+          <div class="form-section">
+            <label for="password">
+              <i class="fas fa-lock"></i>
+            </label>
+            <input
+              type="password"
+              name="password"
+              placeholder="New password"
+              id="password"
+              required
+            />
+          </div>
+
+          <div class="form-section">
+            <label for="answer">
+              <i class="fas fa-question-circle"></i>
+            </label>
+            <input
+              type="answer"
+              name="answer"
+              placeholder="Your Answer"
+              id="answer"
+              required
+            />
+          </div>
+
+          <input type="submit" value="Register" />
+
+          <div class="msg">{{ msg }}</div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

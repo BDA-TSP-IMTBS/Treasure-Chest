@@ -1,0 +1,15 @@
+{% extends 'layout.html' %} 
+
+{% block title %} Home {% endblock %} 
+
+{% block content %}
+<div class="home-section">
+  <h2>Bonne recherche {{username}}</h2>
+  <p>Tu peux voir tes trouvailles à tout moment dans la page dédiée</p>
+
+  <h2>Liste du Père Noël</h2>
+  <figure>
+    <img src="{{url_for('static', filename='cards/marche-de-Noel/liste.png')}}" />
+  </figure>
+</div>
+{% endblock %}

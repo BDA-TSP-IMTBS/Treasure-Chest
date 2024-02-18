@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Bienvenue</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='index.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+    />
+  </head>
+  <body>
+    <div class="main-container">
+      <h2 class="header">Aidez le Père Noël !</h2>
+      <p class="description">
+        Tu es le lutin responsable de trouver les cadeaux disséminés dans ce marché. Trouve-les et scanne les <strong>19 QR codes</strong> !
+        Pour te remercier, la famille Noël travaille avec le BDA pour t'offrir une boisson chaude à leur stand quand tu auras fini !
+      </p>
+
+      <div class="login">
+        <div class="links">
+          <a href="{{ url_for('login') }}" class="active">Login</a>
+          <a href="{{ url_for('register') }}">Register</a>
+        </div>
+        <form action="{{ url_for('login') }}" method="post">
+          <div class="form-section">
+            <label for="username">
+              <i class="fas fa-user"></i>
+            </label>
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              id="username"
+              required
+            />
+          </div>
+          <div class="form-section">
+            <label for="password">
+              <i class="fas fa-lock"></i>
+            </label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              id="password"
+              required
+            />
+          </div>
+
+          <input type="submit" value="Login" />
+
+          <div class="msg">{{ msg }}</div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

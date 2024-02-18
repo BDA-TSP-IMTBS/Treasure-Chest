@@ -1,0 +1,54 @@
+@-webkit-keyframes entrance {
+  to,
+  20%,
+  40%,
+  60%,
+  80% {
+    opacity: 0.3;
+  }
+  from,
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    opacity: 0;
+  }
+}
+@keyframes entrance {
+  to,
+  20%,
+  40%,
+  60%,
+  80% {
+    opacity: 0.3;
+  }
+  from,
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    opacity: 0;
+  }
+}
+
+body div {
+  -webkit-animation: entrance 200ms 0ms linear backwards 1;
+  animation: entrance 200ms 0ms linear backwards 1;
+}
+
+.main-container {
+  -webkit-animation: entrance 400ms 200ms linear backwards 1;
+  animation: entrance 400ms 200ms linear backwards 1;
+}
+
+.image-wrapper {
+  -webkit-animation: entrance 500ms 300ms linear backwards 1;
+  animation: entrance 500ms 300ms linear backwards 1;
+}
+
+.inventory-container {
+  -webkit-animation: entrance 500ms 500ms linear backwards 1;
+  animation: entrance 500ms 500ms linear backwards 1;
+}

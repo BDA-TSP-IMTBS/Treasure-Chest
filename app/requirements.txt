@@ -1,0 +1,7 @@
+Flask
+flask-mysqldb
+mysql-connector
+flask-jwt-extended
+Werkzeug
+Jinja2
+passlib

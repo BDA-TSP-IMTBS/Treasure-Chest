@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Mail Verification</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='index.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+    />
+  </head>
+  <body>
+    <div class="main-container">
+      <h2 class="header">Verification</h2>
+      <p class="description">
+        A code has been sent to you via email
+      </p>
+
+      <div class="verification">
+        <form action="{{ url_for('verification') }}" method="post">
+
+          <div class="form-section">
+            <label for="send-code">
+              <i class="fas fa-lock"></i>
+            </label>
+            <input
+              type="text"
+              name="send-code"
+              placeholder="Received code"
+              id="send-code"
+              required
+            />
+          </div>
+
+          <input type="submit" value="Validate" />
+          <input type="submit" value="Resent code" />
+
+          <div class="msg">{{ msg }}</div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
