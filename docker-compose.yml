@@ -16,6 +16,8 @@ services:
       - DB_USER=root
       - DB_PASSWORD=root
       - DB_DB=pythonlogin
+    env_file:
+      - .env
 
   db:
     image: mysql:5.7

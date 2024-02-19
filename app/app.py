@@ -10,12 +10,14 @@ import mysql.connector
 import json
 import re
 import os
+import smtplib
+import os
+import random as rd
+
 
 app = Flask(__name__)
 
-# Secret key
-# DON'T SHOW THIS TO ANYONE
-app.secret_key = 'your secret key'
+## ______________________________ Initial Configuration ______________________________
 
 # Enter your database connection details below
 app.config['MYSQL_HOST'] = os.getenv('DB_HOST', 'db')
@@ -26,6 +28,24 @@ app.config['MYSQL_PORT'] = 3306
 
 # Intialize MySQL
 mysql = MySQL(app)
+
+# Extract data for email sending
+sender = os.environ.get('SENDER_MAIL')
+print("Sender Mail: ", sender)
+password = os.environ.get('APP_PASSWORD')
+
+with open("./mail.json", "r") as f:
+    data = json.load(f)
+mail_subject = data["mail_subject"]
+mail_body = data["mail_body"]
+
+
+# Extract the question data
+with open("./question.json", "r") as f:
+    data = json.load(f)
+answers = data["answers"]
+
+## ______________________________ Pages ______________________________
 
 # Home Page
 @app.route('/')
@@ -77,19 +97,13 @@ def logout():
    # Redirect to login page
    return redirect(url_for('login'))
 
-
-
-# Extract the question data
-with open("./question.json", "r") as f:
-    data = json.load(f)
-answers = data["answers"]
-
-
 # Register endpoint
 @app.route('/login/register', methods=['GET', 'POST'])
 def register():
     # Output message if something goes wrong...
     msg = ''
+    previous_mail = ''
+
     # Check if "mail", "password", "answer" POST requests exist (user submitted form)
     if request.method == 'POST' and 'mail' in request.form and 'password' in request.form and 'answer' in request.form:
         # Create variables for easy access
@@ -110,9 +124,10 @@ def register():
             msg = 'Account already exists!'
         elif answer not in answers: # If the answer is wrong the account is not created
             msg = 'Wrong answer !'
+            previous_mail = mail
         else:
             # Account doesnt exists and the form data is valid, now insert new account into accounts table
-            return redirect(url_for('verification'))
+            return redirect(url_for('verification', receiver=mail))
             # cursor.execute('INSERT INTO accounts VALUES (NULL, %s, %s, 0, %s, DEFAULT)', (mail, password,))
             # mysql.connection.commit()
             
@@ -122,7 +137,7 @@ def register():
         msg = 'Please fill out the form!'
         
     # Show registration form with message (if any)
-    return render_template('register.html', msg=msg)
+    return render_template('register.html', msg=msg, previous_mail=previous_mail)
 
 
 
@@ -130,68 +145,47 @@ def register():
 def verification():
     # Output message if something goes wrong...
     msg = ''
-    if firstVerification == None or firstVerification:
-        firstVerification = False
+
+    receiver = request.args.get('receiver')
+    print(receiver)
+    
+    code = sent_code(receiver=receiver)
+
+    if request.method == 'POST' and 'send-code' in request.form:
+        pressed_button = request.form['button']
+        if pressed_button == 'Validate':
+            return render_template('register.html', msg='Account created successfully')
+            pass
+        elif pressed_button == 'button2':
+            code = sent_code()
+            pass
+
+    return render_template('verification.html', msg=msg, maxlength=len(code))
 
 
+def sent_code(receiver):
+    code = ''
+    codelength = 6
+    for i in range(codelength):
+        code += str(rd.randrange(0, 10))
+    
+    body = mail_body + code
+
+    mail = f'Suject: {mail_subject}\n\n{body}'
+
+    with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+        smtp.ehlo()
+        smtp.starttls()
+        smtp.ehlo()
+
+        smtp.login(sender, password)
+        print("Login completed")
 
 
-
-
-
-
-
-
-
-    return render_template('verification.html', msg=msg)
-
-
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-
-def send_email(to_email, subject, message):
-    # Paramètres du serveur SMTP
-    smtp_server = 'smtp.example.com'
-    smtp_port = 587  # Port SMTP (peut être 465 pour SSL)
-
-    # Adresse e-mail et mot de passe de l'expéditeur
-    sender_email = 'thomas.schneider@telecom-sudparis.eu'
-    password = 'your_password'
-
-    # Création du message
-    msg = MIMEMultipart()
-    msg['From'] = sender_email
-    msg['To'] = to_email
-    msg['Subject'] = subject
-
-    # Ajout du corps du message
-    msg.attach(MIMEText(message, 'plain'))
-
-    # Connexion au serveur SMTP
-    with smtplib.SMTP(smtp_server, smtp_port) as server:
-        server.starttls()  # Pour sécuriser la connexion
-        server.login(sender_email, password)
-        server.sendmail(sender_email, to_email, msg.as_string())
-
-
-
-
-with open("./mail.json", "r") as f:
-    data = json.load(f)
-answers = data["password"]
-
-
-
-
-
-
-
-
-
-
-
-
+        smtp.sendmail(sender, receiver, mail)
+        print("Email envoyé")
+    
+    return code
 
 
 

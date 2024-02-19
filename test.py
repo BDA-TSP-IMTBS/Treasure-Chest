@@ -1,1 +1,10 @@
-print("@telecom-sudparis.eu" in "thomas.schneider@telecom-sudparis.eu" or "@imt-bs.eu" in "thomas.schneider@telecom-sudparis.eu")
+import random as rd
+
+code = ''
+for i in range(6):
+    code += str(rd.randrange(0, 10))
+
+
+
+
+print(code)

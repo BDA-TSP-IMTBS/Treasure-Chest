@@ -28,6 +28,7 @@
             </label>
             <input
               type="text"
+              maxlength="{{ maxlength }}"
               name="send-code"
               placeholder="Received code"
               id="send-code"
@@ -35,8 +36,8 @@
             />
           </div>
 
-          <input type="submit" value="Validate" />
-          <input type="submit" value="Resent code" />
+          <input type="submit" name="button" value="Validate" />
+          <input type="submit" name="button" value="Resent code" />
 
           <div class="msg">{{ msg }}</div>
         </form>
