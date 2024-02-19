@@ -23,16 +23,15 @@
         <form action="{{ url_for('verification') }}" method="post">
 
           <div class="form-section">
-            <label for="send-code">
+            <label for="code">
               <i class="fas fa-lock"></i>
             </label>
             <input
               type="text"
               maxlength="{{ maxlength }}"
-              name="send-code"
+              name="code"
               placeholder="Received code"
-              id="send-code"
-              required
+              id="code"
             />
           </div>
 

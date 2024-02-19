@@ -14,10 +14,9 @@
   </head>
   <body>
     <div class="main-container">
-      <h2 class="header">Aidez le Père Noël !</h2>
+      <h2 class="header">A la recherche du trésor de Boris le Rouge !</h2>
       <p class="description">
-        Tu es le lutin responsable de trouver les cadeaux disséminés dans ce marché. Trouve-les et scanne les <strong>19 QR codes</strong> !
-        Pour te remercier, la famille Noël travaille avec le BDA pour t'offrir une boisson chaude à leur stand quand tu auras fini !
+        Est-tu prêt pirate ? Prêt à chercher le trésor qui t'ouvrira les portes de la meilleure soirée de l'année ?
       </p>
 
       <div class="login">
@@ -27,14 +26,14 @@
         </div>
         <form action="{{ url_for('login') }}" method="post">
           <div class="form-section">
-            <label for="username">
+            <label for="mail">
               <i class="fas fa-user"></i>
             </label>
             <input
               type="text"
-              name="username"
-              placeholder="Username"
-              id="username"
+              name="mail"
+              placeholder="Mail"
+              id="mail"
               required
             />
           </div>

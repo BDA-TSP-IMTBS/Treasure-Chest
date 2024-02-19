@@ -13,11 +13,17 @@ import os
 import smtplib
 import os
 import random as rd
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 
 app = Flask(__name__)
 
 ## ______________________________ Initial Configuration ______________________________
+# Secret key
+# DON'T SHOW THIS TO ANYONE
+app.secret_key = 'your secret key'
+
 
 # Enter your database connection details below
 app.config['MYSQL_HOST'] = os.getenv('DB_HOST', 'db')
@@ -62,12 +68,12 @@ def home():
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
     msg = ''
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-        username = request.form['username']
+    if request.method == 'POST' and 'mail' in request.form and 'password' in request.form:
+        mail = request.form['mail']
         password = request.form['password']
         
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM accounts WHERE username = %s', (username,))
+        cursor.execute('SELECT * FROM accounts WHERE mail = %s', (mail,))
         account = cursor.fetchone()
         
         if account:
@@ -81,8 +87,8 @@ def login():
                 # Redirect to home page
                 return redirect(url_for('home'))
         else:
-            # Account doesnt exist or username/password incorrect
-            msg = 'Incorrect username/password!'
+            # Account doesnt exist or mail/password incorrect
+            msg = 'Incorrect mail/password!'
     
     return render_template('login.html', msg=msg)
   
@@ -101,7 +107,10 @@ def logout():
 @app.route('/login/register', methods=['GET', 'POST'])
 def register():
     # Output message if something goes wrong...
-    msg = ''
+    if request.args.get('msg') != None:
+        msg = request.args.get('msg')
+    else:
+        msg = ''
     previous_mail = ''
 
     # Check if "mail", "password", "answer" POST requests exist (user submitted form)
@@ -118,6 +127,7 @@ def register():
         answer = request.form['answer']
         if not mail or not password or not answer:
             msg = 'Please fill out the form!'
+            previous_mail = mail
         elif "@telecom-sudparis.eu" not in mail and "@imt-bs.eu" not in mail: # Check if it is a TSP or IMT-BS adress
             msg = 'Please use your TSP or IMT-BS mail address'
         elif account: # If account exists show error and validation checks
@@ -127,9 +137,10 @@ def register():
             previous_mail = mail
         else:
             # Account doesnt exists and the form data is valid, now insert new account into accounts table
-            return redirect(url_for('verification', receiver=mail))
-            # cursor.execute('INSERT INTO accounts VALUES (NULL, %s, %s, 0, %s, DEFAULT)', (mail, password,))
-            # mysql.connection.commit()
+            session['firtverification'] = True
+            session['receiver'] = mail
+            session['tmp_pass'] = password
+            return redirect(url_for('verification'))
             
             
     elif request.method == 'POST':
@@ -139,39 +150,70 @@ def register():
     # Show registration form with message (if any)
     return render_template('register.html', msg=msg, previous_mail=previous_mail)
 
-
-
+# Verification endpoint
 @app.route('/login/register/verification', methods=['GET', 'POST'])
 def verification():
     # Output message if something goes wrong...
     msg = ''
 
-    receiver = request.args.get('receiver')
-    print(receiver)
-    
-    code = sent_code(receiver=receiver)
+    if session['firtverification'] == True:
+        receiver = session['receiver']
+        code = send_code(receiver)
+        session['firtverification'] = False
+        session['code'] = code
+        pass
+    else:
+        code = session['code']
 
-    if request.method == 'POST' and 'send-code' in request.form:
+    if request.method == 'POST' and 'code' in request.form:
+
         pressed_button = request.form['button']
         if pressed_button == 'Validate':
-            return render_template('register.html', msg='Account created successfully')
+            received_code = request.form['code']
+            if received_code == code:
+                mail = session['receiver']
+                password = session['tmp_pass']
+                cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+                cursor.execute('INSERT INTO accounts VALUES (NULL, %s, %s, False, DEFAULT)', (mail, password,))
+                mysql.connection.commit()
+
+                # Clear session values used for verification
+                session['receiver'] = None
+                session[password] = None
+
+                return redirect(url_for('register', msg='Account successfully created'))
+            
+            else:
+                msg = 'Wrong code'
             pass
-        elif pressed_button == 'button2':
-            code = sent_code()
+
+        elif pressed_button == 'Resent code':
+            session['firtverification'] = True
+            msg = 'Code resent'
             pass
 
     return render_template('verification.html', msg=msg, maxlength=len(code))
 
-
-def sent_code(receiver):
+def send_code(receiver):
     code = ''
     codelength = 6
     for i in range(codelength):
         code += str(rd.randrange(0, 10))
-    
     body = mail_body + code
 
-    mail = f'Suject: {mail_subject}\n\n{body}'
+    # Créer le message
+    msg = MIMEMultipart()
+    msg['From'] = sender
+    msg['To'] = receiver
+    msg['Subject'] = mail_subject
+
+    # Ajouter le corps du message
+    msg.attach(MIMEText(body, 'plain'))
+
+    # Convertir le message en chaîne de caractères
+    mail = msg.as_string()    
+
+    # mail = f'Suject: {mail_subject}\n\n{body}'
 
     with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
         smtp.ehlo()
@@ -186,6 +228,7 @@ def sent_code(receiver):
         print("Email envoyé")
     
     return code
+    
 
 
 
