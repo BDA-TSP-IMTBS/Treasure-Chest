@@ -4,12 +4,24 @@
 
 {% block content %}
 <div class="home-section">
-  <h2>Bonne recherche {{username}}</h2>
-  <p>Tu peux voir tes trouvailles à tout moment dans la page dédiée</p>
+  <h2>Good luck {{prenom}} !</h2>
+  <p>You can consulte the code you have found in the treasure section</p>
 
-  <h2>Liste du Père Noël</h2>
-  <figure>
-    <img src="{{url_for('static', filename='cards/marche-de-Noel/liste.png')}}" />
-  </figure>
+  <h2>Enter the code you found through your treasure search </h2>
+
+  <form action="{{ url_for('home') }}" method="post">
+    <div class="form-section">
+      <input
+        type="text"
+        name="code"
+        placeholder="Code"
+        id="code"
+      />
+    </div>
+    
+    <input type="submit" value="Search" />
+
+    <div class="msg">{{ msg }}</div>
+  </form>
 </div>
 {% endblock %}

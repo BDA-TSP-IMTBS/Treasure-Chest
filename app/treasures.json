@@ -1,0 +1,42 @@
+{
+  "code": "1234",
+  "treasures": [
+    {
+      "slug": "f6b3MghwUMdKEl6y",
+      "places": [
+        1
+      ],
+      "treasure": "Code - 1",
+      "description": "Tu as trouve un ticket pour la soiree Boris le Rouge ! Rends toi sur HelloAsso pour rentrer ce code"
+    },
+    {
+      "slug": "NHrvtJFrS8CQW5CG",
+      "places": [
+        2
+      ],
+      "treasure": "Code - 2",
+      "description": "Tu as trouve un ticket pour la soiree Boris le Rouge ! Rends toi sur HelloAsso pour rentrer ce code"
+    },
+    {
+      "slug": "tY30nyzInusMXACi",
+      "places": [
+        3
+      ],
+      "treasure": "Code - 3",
+      "description": "Tu as trouve un bon pour une conso alcool pour la soiree Boris le Rouge ! Rends toi sur HelloAsso pour rentrer ce code"
+    },
+    {
+      "slug": "eVZbT9jYZsktZfal",
+      "places": [
+        4
+      ],
+      "treasure": "Code - 4",
+      "description": "Tu as trouve un bon pour une conso alcool pour la soiree Boris le Rouge ! Rends toi sur HelloAsso pour rentrer ce code"
+    }
+  ],
+  "too-late": {
+    "slug": "too-late",
+    "description": "Too late ! Other pirates have been here befor you and already taken all treasures !",
+    "treasure": "Empty chest"
+  }
+}

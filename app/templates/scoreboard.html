@@ -3,17 +3,33 @@
 {% block title %}Scoreboard{% endblock %}
 
 {% block content %}
-<h2>Scoreboard</h2>
+<h1>Scoreboard</h1>
 <div>
+  <h2>Successfull :</h2>
     <table>
       <tr>
-        <th>Pseudo</th>
-        <th>Score</th>
+        <th>Mail</th>
+        <th>Place</th>
+        <th>Discovery time</th>
       </tr>
-      {% for row in rows %}
+      {% for found in founds %}
       <tr>
-        <td>{{ row['username'] }}</td>
-        <td>{{ row['score'] }}</td>
+        <td>{{ found['mail'] }}</td>
+        <td>{{ found['place'] }}</td>
+        <td>{{ found['discoverTime'] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+</div>
+<div>
+  <h2>Still nothing :</h2>
+    <table>
+      <tr>
+        <th>Mail</th>
+      </tr>
+      {% for notFound in notFounds %}
+      <tr>
+        <td>{{ notFound['mail'] }}</td>
       </tr>
       {% endfor %}
     </table>
