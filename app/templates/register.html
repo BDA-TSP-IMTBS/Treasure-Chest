@@ -1,74 +1,72 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Bienvenue</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='index.css') }}"
-    />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
-    />
-  </head>
-  <body>
-    <div class="main-container">
-      <h2 class="header">A la recherche du trésor de Boris le Rouge !</h2>
-      <p class="description">
-        Est-tu prêt pirate ? Prêt à chercher le trésor qui t'ouvrira les portes de la meilleure soirée de l'année ?
-      </p>
+{% extends 'base.html' %}
 
-      <div class="login">
-        <div class="links">
-          <a href="{{ url_for('login') }}">Login</a>
-          <a href="{{ url_for('register') }}" class="active">Register</a>
-        </div>
-        <form action="{{ url_for('register') }}" method="post">
+{% block title %} Register {% endblock %} 
 
-          <div class="form-section">
-            <label for="mail">
-              <i class="fas fa-user"></i>
-            </label>
-            <input
-              value='{{ previous_mail }}'
-              type="text"
-              name="mail"
-              placeholder="TSP or IMT-BS mail address"
-              id="mail"
-            />
-          </div>
+{% block content %}
+<div>
+  <h2 class="sub-title">A la recherche du tresor de</h2>
+  <h1 class="main-title">Boris le <span class="rouge">Rouge</span></h1>
+  <div>
+    <p class="description">Est-tu prêt pirate ? Prêt à chercher le trésor qui t'ouvrira</p>
+    <p class="description">les portes de la meilleure soirée de l'année ?</p>
+  </div>
+</div>
 
-          <div class="form-section">
-            <label for="password">
-              <i class="fas fa-lock"></i>
-            </label>
-            <input
-              value='{{ previous_password }}'
-              type="password"
-              name="password"
-              placeholder="New password"
-              id="password"
-            />
-          </div>
-
-          <div class="form-section">
-            <label for="answer">
-              <i class="fas fa-question-circle"></i>
-            </label>
-            <input
-              type="text"
-              name="answer"
-              placeholder="Answer"
-              id="answer"
-            />
-          </div>
-
-          <input type="submit" value="Register" />
-
-          <div class="msg">{{ msg }}</div>
-        </form>
-      </div>
+<div class="main-container">
+  <div class="login">
+    <div class="links">
+      <a href="{{ url_for('login') }}">Login</a>
+      <a href="{{ url_for('register') }}" class="active">Register</a>
     </div>
-  </body>
-</html>
+    <form action="{{ url_for('register') }}" method="post">
+
+      <div class="form-section">
+        <label for="mail">
+          <i class="fas fa-user" style="color: black;"></i>
+        </label>
+        <input
+          value='{{ previous_mail }}'
+          type="text"
+          name="mail"
+          placeholder="TSP or IMT-BS mail address"
+          id="mail"
+        />
+      </div>
+
+      <div class="form-section">
+        <label for="password">
+          <i class="fas fa-lock" style="color: black;"></i>
+        </label>
+        <input
+          value='{{ previous_password }}'
+          type="password"
+          name="password"
+          placeholder="New password"
+          id="password"
+        />
+      </div>
+
+      <div>
+        <p class="question" >{{ question }}</p>
+        <img class="question-image" src="../static/resources/{{ questionImage }}" alt="Dapeau">
+      </div>
+
+      <div class="form-section">
+        <label for="answer">
+          <i class="fas fa-question-circle" style="color: black;"></i>
+        </label>
+        <input
+          type="text"
+          name="answer"
+          placeholder="Answer"
+          id="answer"
+        />
+      </div>
+
+      <input type="submit" value="Register" />
+
+      <div class="msg">{{ msg }}</div>
+    </form>
+  </div>
+</div>
+{% endblock %}

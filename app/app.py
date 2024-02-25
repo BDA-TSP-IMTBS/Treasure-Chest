@@ -50,7 +50,10 @@ mail_body = data["mail_body"]
 # Extract the question data
 with open("./question.json", "r") as f:
     data = json.load(f)
+questionImage = data["image"]
+question = data["question"]
 answers = data["answers"]
+
 
 # Extract the treasures data
 with open("./treasures.json", "r") as f:
@@ -142,6 +145,7 @@ def logout():
    session.pop('loggedin', None)
    session.pop('id', None)
    session.pop('mail', None)
+   session.pop('place', None)
    session.pop('discoverTime', None)
    # Redirect to login page
    return redirect(url_for('login'))
@@ -172,7 +176,7 @@ def register():
         if account: # If account exists show error and validation checks
             msg = 'Account already exists!'
         elif "@telecom-sudparis.eu" not in mail and "@imt-bs.eu" not in mail: # and "!!" not in mail: # Check if it is a TSP or IMT-BS adress
-            msg = 'Please use your TSP or IMT-BS mail address'
+            msg = 'Use your TSP or IMT-BS mail adress'
         elif not mail or not password or not answer:
             msg = 'Please fill out the form!'
             previous_mail = mail
@@ -192,7 +196,7 @@ def register():
         msg = 'Please fill out the form!'
         
     # Show registration form with message (if any)
-    return render_template('register.html', msg=msg, previous_mail=previous_mail)
+    return render_template('register.html', msg=msg, previous_mail=previous_mail, question=question, questionImage=questionImage)
 
 # Verification endpoint
 @app.route('/login/register/verification', methods=['GET', 'POST'])

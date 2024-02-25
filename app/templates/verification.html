@@ -1,46 +1,33 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Mail Verification</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='index.css') }}"
-    />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
-    />
-  </head>
-  <body>
-    <div class="main-container">
-      <h2 class="header">Verification</h2>
-      <p class="description">
-        A code has been sent to you via email
-      </p>
+{% extends 'base.html' %} 
 
-      <div class="verification">
-        <form action="{{ url_for('verification') }}" method="post">
+{% block title %} Mail Verification {% endblock %} 
 
-          <div class="form-section">
-            <label for="code">
-              <i class="fas fa-lock"></i>
-            </label>
-            <input
-              type="text"
-              maxlength="{{ maxlength }}"
-              name="code"
-              placeholder="Received code"
-              id="code"
-            />
-          </div>
+{% block content %}
+<div class="verification">
+  <div>
+    <p class="description">
+      Un code vous a été envoyé par mail. Veuillez entrez votre code
+    </p>
+    <form action="{{ url_for('verification') }}" method="post">
 
-          <input type="submit" name="button" value="Validate" />
-          <input type="submit" name="button" value="Resent code" />
-
-          <div class="msg">{{ msg }}</div>
-        </form>
+      <div class="form-section">
+        <label for="code">
+          <i class="fas fa-lock" style="color: black;"></i>
+        </label>
+        <input
+          type="text"
+          maxlength="{{ maxlength }}"
+          name="code"
+          placeholder="Received code"
+          id="code"
+        />
       </div>
-    </div>
-  </body>
-</html>
+
+      <input type="submit" name="button" value="Validate" />
+      <input type="submit" name="button" value="Resent code" />
+
+      <div class="msg">{{ msg }}</div>
+    </form>
+  </div>
+</div>
+{% endblock %}
