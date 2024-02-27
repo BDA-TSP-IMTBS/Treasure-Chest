@@ -185,7 +185,7 @@ def register():
             previous_mail = mail
         else:
             # Account doesnt exists and the form data is valid, now insert new account into accounts table
-            session['firtverification'] = True
+            session['firstverification'] = True
             session['receiver'] = mail
             session['tmp_pass'] = password
             return redirect(url_for('verification'))
@@ -204,10 +204,10 @@ def verification():
     # Output message if something goes wrong...
     msg = ''
 
-    if session['firtverification'] == True:
+    if session['firstverification'] == True:
         receiver = session['receiver']
         code = send_code(receiver)
-        session['firtverification'] = False
+        session['firstverification'] = False
         session['code'] = code
         pass
     else:
@@ -228,7 +228,7 @@ def verification():
                 # Clear session values used for verification
                 session.pop('receiver', None)
                 session.pop('tmp_pass', None)
-                session.pop('firtverification', None)
+                session.pop('firstverification', None)
 
                 return redirect(url_for('register', msg='Account successfully created'))
             
@@ -237,7 +237,7 @@ def verification():
             pass
 
         elif pressed_button == 'Resent code':
-            session['firtverification'] = True
+            session['firstverification'] = True
             msg = 'Code resent'
             pass
 
