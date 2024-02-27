@@ -1,6 +1,8 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 
-{% block title %} Mail Verification {% endblock %} 
+{% block title %} Mail verification{% endblock %}
+
+{% block background %}{{ url_for('static', filename='resources/Plage.png') }}{% endblock %}
 
 {% block content %}
 <div class="verification">

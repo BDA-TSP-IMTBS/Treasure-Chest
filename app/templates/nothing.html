@@ -2,8 +2,10 @@
 
 {% block title %}Treasure{% endblock %}
 
+{% block background %}{{ url_for('static', filename='resources/Plage.png') }}{% endblock %}
+
 {%block treasure_content %}
 <div class="home-section">
-  <h1>There is nothing here</h1>
+  <h1 class="treasure">There is nothing here</h1>
 </div>
 {% endblock %}

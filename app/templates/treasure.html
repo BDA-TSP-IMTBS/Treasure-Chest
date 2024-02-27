@@ -2,9 +2,12 @@
 
 {% block title %}Treasure{% endblock %}
 
+{% block background %}{{ url_for('static', filename='resources/' + coffre) }}{% endblock %}
+
 {%block treasure_content %}
 <div class="home-section">
-  <h1>{{treasure["treasure"]}}</h1>
-  <h2>{{treasure["description"]}}</h2>
+  <h1 class="treasure">{{treasure["treasure"]}}</h1>
+  <h2 class="treasure-description">{{treasure["description-1"]}}</h2>
+  <h2 class="treasure-description">{{treasure["description-2"]}}</h2>
 </div>
 {% endblock %}

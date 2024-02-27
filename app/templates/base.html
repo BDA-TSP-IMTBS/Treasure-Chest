@@ -11,6 +11,14 @@
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
     />
+    <style>
+      body {
+        background-image: url("{% block background %}{% endblock %}");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+      }
+  </style>
   </head>
   <body>
     <div class="content">

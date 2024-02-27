@@ -1,14 +1,17 @@
 {% extends 'layout.html' %} 
 
-{% block title %} Home {% endblock %} 
+{% block title %} Home {% endblock %}
+
+{% block background %}{{ url_for('static', filename='resources/Plage-Fermé.png') }}{% endblock %}
+
 
 {% block treasure_content %}
 <div class="home-section">
-  <h2>Good luck {{prenom}} !</h2>
-  <p>You can consulte the code you have found in the treasure section</p>
-
-  <h2>Enter the code you found through your treasure search </h2>
-
+  <h1 class="good-luck">Bonne chance <span class="nom">{{prenom}}</span> !</h1>
+  <p class="description">Tu peux consulter les trésors que tu as trouvés sur la page "Found Treasure"</p>
+</div>
+<div class="search">
+  <h2 class="description">Entre le code que tu as trouvé pendant ta recherche du trésor pour ouvrir le coffre !</h2>
   <form action="{{ url_for('home') }}" method="post">
     <div class="form-section">
       <input

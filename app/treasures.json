@@ -7,7 +7,8 @@
         1
       ],
       "treasure": "Code - 1",
-      "description": "Tu as trouve un ticket pour la soiree Boris le Rouge ! Rends toi sur HelloAsso pour rentrer ce code"
+      "description-1": "Tu as trouve un ticket pour la soiree de Boris le Rouge !",
+      "description-2": "Rends toi sur HelloAsso pour rentrer ce code."
     },
     {
       "slug": "NHrvtJFrS8CQW5CG",
@@ -15,7 +16,8 @@
         2
       ],
       "treasure": "Code - 2",
-      "description": "Tu as trouve un ticket pour la soiree Boris le Rouge ! Rends toi sur HelloAsso pour rentrer ce code"
+      "description-1": "Tu as trouve un ticket pour la soiree de Boris le Rouge !",
+      "description-2": "Rends toi sur HelloAsso pour rentrer ce code."
     },
     {
       "slug": "tY30nyzInusMXACi",
@@ -23,7 +25,8 @@
         3
       ],
       "treasure": "Code - 3",
-      "description": "Tu as trouve un bon pour une conso alcool pour la soiree Boris le Rouge ! Rends toi sur HelloAsso pour rentrer ce code"
+      "description-1": "Tu as trouve un bon pour une conso alcool pour la soiree de Boris le Rouge !",
+      "description-2": "Rends toi sur HelloAsso pour rentrer ce code."
     },
     {
       "slug": "eVZbT9jYZsktZfal",
@@ -31,12 +34,14 @@
         4
       ],
       "treasure": "Code - 4",
-      "description": "Tu as trouve un bon pour une conso alcool pour la soiree Boris le Rouge ! Rends toi sur HelloAsso pour rentrer ce code"
+      "description-1": "Tu as trouve un bon pour une conso alcool pour la soiree de Boris le Rouge !",
+      "description-2": "Rends toi sur HelloAsso pour rentrer ce code."
+
     }
   ],
   "too-late": {
-    "slug": "too-late",
-    "description": "Too late ! Other pirates have been here befor you and already taken all treasures !",
-    "treasure": "Empty chest"
+    "treasure": "Coffre vide",
+    "description-1": "Trop tard ! D'autres pirates sont déjà passés et ont pris tout le butin !",
+    "slug": "too-late"
   }
 }

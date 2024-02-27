@@ -39,7 +39,7 @@ mysql = MySQL(app)
 # Extract data for email sending
 sender = os.environ.get('SENDER_MAIL')
 print("Sender Mail: ", sender)
-password = os.environ.get('APP_PASSWORD')
+app_password = os.environ.get('APP_PASSWORD')
 
 with open("./mail.json", "r") as f:
     data = json.load(f)
@@ -233,7 +233,7 @@ def verification():
                 return redirect(url_for('register', msg='Account successfully created'))
             
             else:
-                msg = 'Wrong code ' # + code
+                msg = 'Wrong code ' #+ code
             pass
 
         elif pressed_button == 'Resent code':
@@ -244,6 +244,7 @@ def verification():
     return render_template('verification.html', msg=msg, maxlength=len(code))
 
 def send_code(receiver):
+    # Création du code à envoyer
     code = ''
     codelength = 6
     for i in range(codelength):
@@ -260,21 +261,22 @@ def send_code(receiver):
     msg.attach(MIMEText(body, 'plain'))
 
     # Convertir le message en chaîne de caractères
-    mail = msg.as_string()    
+    mail = msg.as_string()
 
-    # mail = f'Suject: {mail_subject}\n\n{body}'
-
+    # Envoie du mail
     with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
         smtp.ehlo()
         smtp.starttls()
         smtp.ehlo()
 
-        smtp.login(sender, password)
+        smtp.login(sender, app_password)
         print("Login completed")
 
-
-        smtp.sendmail(sender, receiver, mail)
-        print("Email envoyé")
+        try:
+            smtp.sendmail(sender, receiver, mail)
+            print("Email envoyé")
+        except:
+            return redirect(url_for('register', msg='Wrong email address'))
     
     return code
 
@@ -288,9 +290,9 @@ def treasure(slug):
         if slug in slugList:
             id = slugList.index(slug)
 
-            return render_template('treasure.html', treasure = treasures[id])
+            return render_template('treasure.html', treasure = treasures[id], coffre="Plage-Ouvert.png")
         elif slug == 'too-late':
-            return render_template('treasure.html', treasure = toolate)
+            return render_template('treasure.html', treasure = toolate, coffre="Plage-Vide.png")
 
     
     # User is not loggedin redirect to login page
@@ -332,7 +334,7 @@ def scoreboard():
 
     
     return render_template('scoreboard.html', founds=founds, notFounds=notFounds)
-    
+
 
 
 if __name__ == '__main__':
