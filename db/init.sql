@@ -7,6 +7,6 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `password` varchar(255) NOT NULL,
   `hasFound` boolean,
   `place` int,
-  `discoverTime` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `discoverTime` TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
