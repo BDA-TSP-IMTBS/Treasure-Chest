@@ -58,6 +58,7 @@ answers = data["answers"]
 # Extract the treasures data
 with open("./treasures.json", "r") as f:
     data = json.load(f)
+final_enigme = data["final-enigme"]
 treasure_code = data["code"]
 treasures = data["treasures"]
 toolate = data["too-late"]
@@ -104,7 +105,7 @@ def home():
                 msg = "Wrong code !"
         
         prenom = session['mail'].split('.')[0]
-        return render_template('home.html', prenom=prenom[0].upper() + prenom[1:], msg=msg)
+        return render_template('home.html', prenom=prenom[0].upper() + prenom[1:], final_enigme=final_enigme, msg=msg)
     
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
