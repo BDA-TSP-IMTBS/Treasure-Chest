@@ -75,7 +75,7 @@ def home():
         # User is loggedin show them the home page
         if request.method == 'POST' and 'code' in request.form:
 
-            code = request.form['code']
+            code = request.form['code'].lower()
             if code == treasure_code:
                 cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
                 cursor.execute('SELECT * FROM accounts WHERE id = %s', (session['id'],))

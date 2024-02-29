@@ -91,6 +91,7 @@ Dans cette chasse aux QR Code, un code correspond à un item. Cet item peut êtr
 
 ```json
 {
+  "final-enigme": "Enigme finale",
   "code": "1234",
   "treasures": [
     {
@@ -115,7 +116,7 @@ Dans cette chasse aux QR Code, un code correspond à un item. Cet item peut êtr
   }
 }
 ```
-
+- `final-enigme` : énigme finale de la chasse au trésor
 - `code` : code à trouver à la fin de la chasse au trésor
 - `treasures` : liste de toutes les récompenses
 ```json
