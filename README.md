@@ -1,20 +1,11 @@
 # Treasure Chest
 
-<span>
-<img alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white">
-</span>
-<span>
-<img alt="Flask" src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white">
-</span>
-<span>
-<img alt="MySQL" src="https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white">
-</span>
-<span>
-<img alt="MariaDB" src="https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white">
-</span>
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white")
+![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
+![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)
 
-
-Treasure Chest est une application web qui permet de récupérer une récompense en fin d'un jeu de chasse au trésor. L'utilisateur doit s'authentifier par son adresse mail TSP ou IMT-BS. La récompense donnée est déterminée par l'ordre dans lequel les personnes ont rentrés le code. Elle a été créée en 2024 par le pôle web du BDA du campus TSP/IMTBS.
+Treasure Chest est une application web qui permet de récupérer une récompense en fin d'un jeu de chasse au trésor. L'utilisateur doit s'authentifier par son adresse mail TSP ou IMT-BS. La récompense donnée est déterminée par l'ordre dans lequel les personnes ont rentrés le code. Elle a été créée en 2024 par le pôle web du BDA du campus TSP/IMT-BS.
 
 ## Installation
 
@@ -41,7 +32,8 @@ ou
 docker-compose up
 ```
 
-Si vous apportez des modifications à l'application, il faut rebuild l'application en la lancant : 
+Si vous apportez des modifications à l'application, il faut rebuild l'application en la lançant :
+
 ```bash
 docker compose up --build
 ```
@@ -67,16 +59,18 @@ Pour la modifier, cela ce fait dans le fichier `./app/question.json` :
     ]
   }
 ```
+
 - `image`: image accompagnant la question
 - `question` : question à afficher
-- `answers` : liste de toutes les réponses possible <b>en minuscule</b>
+- `answers` : liste de toutes les réponses possible **en minuscule**
 
 ### Étape 2 : Envoie de mails
 
 Pour authentifier les élèves, l'application utilise un code à 6 chiffres envoyé par mail à l'adresse donnée. Il faut donc définir une adresse mail d'envoie. Ici, on utilise une adresse gmail.
 
-Il faut <b>rajouter</b> au projet un fichier `./.env` dans lequel on défini des variables d'environnement:
-```
+Il faut **rajouter** au projet un fichier `./.env` dans lequel on défini des variables d'environnement:
+
+``` text
 SENDER_MAIL='votre-adresse-gmail'
 APP_PASSWORD='mot-de-passe-application'
 ```
@@ -116,9 +110,11 @@ Dans cette chasse aux QR Code, un code correspond à un item. Cet item peut êtr
   }
 }
 ```
+
 - `final-enigme` : énigme finale de la chasse au trésor
 - `code` : code à trouver à la fin de la chasse au trésor
 - `treasures` : liste de toutes les récompenses
+
 ```json
     ...
     {
@@ -130,6 +126,7 @@ Dans cette chasse aux QR Code, un code correspond à un item. Cet item peut êtr
     },
     ...
 ```
+
 - `slug` : morceau de l’URL d’une récompense généré aléatoirement.
 - `places` : liste des places concernées par cette récompense. Ainsi, les personnes arrivées deuxième et troisième peuvent partager la même récompense.
 - `treasure` : la récompense en question, un code à récupérer et utiliser auprès du BDA
@@ -138,6 +135,7 @@ Dans cette chasse aux QR Code, un code correspond à un item. Cet item peut êtr
 Si toutes les récompenses ont été épuisées:
 
 - `too-late` : défini ce qu'il se passe quand il ne reste plus de récompenses:
+
 ```json
   ...
   "too-late": {
@@ -146,10 +144,10 @@ Si toutes les récompenses ont été épuisées:
     "slug": "too-late"
   }
 ```
+
 - `slug` : morceau de l’URL pour la page
 - `treasure` : phrase qui vient remplacer la récompense
 - `description-1` : phrases de description
-
 
 ### Générer les slugs
 
@@ -161,4 +159,4 @@ Pour générer automatiquement les slugs de vos items, vous pouvez lancer le scr
 python3 ./utils/generateSlugs.py
 ```
 
-Un nouveau fichier `treasures.json` sera créé à la racine de l'application, qu'il faudra ensuite déplacer dans le dossier `./app`
+Un nouveau fichier `treasures.json` sera créé à la racine de l'application, qu'il faudra ensuite déplacer dans le dossier `./app`.
